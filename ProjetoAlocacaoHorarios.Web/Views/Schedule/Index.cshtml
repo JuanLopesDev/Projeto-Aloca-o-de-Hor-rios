@@ -1,0 +1,11 @@
+@model IEnumerable<ProjetoAlocacaoHorarios.Web.Models.ScheduleEntry>
+@{ ViewData["Title"] = "Grade de horários"; }
+<div class="page-heading"><div><p class="eyebrow">CENTRAL DE GERAÇÃO</p><h1>Grade de horários</h1><p>Gere uma nova versão sempre que atualizar disponibilidades ou alocações.</p></div><div class="action-group"><a class="btn btn-outline-primary" asp-action="Export">Exportar CSV</a><form asp-action="Generate" method="post"><button class="btn btn-primary" type="submit">Gerar nova grade</button></form></div></div>
+@if (TempData["Success"] is string success) { <div class="alert alert-success">✓ @success</div> }
+@if (TempData["Error"] is string error) { <div class="alert alert-danger">@error</div> }
+<section class="panel">
+    @if (!Model.Any()) { <div class="empty-state">Nenhuma grade gerada ainda. Clique em "Gerar nova grade" para processar as alocações cadastradas.</div> }
+    else { <div class="table-responsive"><table class="table modern-table"><thead><tr><th>Dia</th><th>Início</th><th>Professor</th><th>Disciplina</th><th>Turma</th></tr></thead><tbody>
+    @foreach (var entry in Model) { <tr><td>@entry.TimeSlot!.DayOfWeek</td><td><span class="time-pill">@entry.TimeSlot.StartTime.ToString("HH:mm")</span></td><td>@entry.Teacher!.Name</td><td><strong>@entry.Subject!.Name</strong></td><td>@entry.ClassGroup!.Name</td></tr> }
+    </tbody></table></div> }
+</section>

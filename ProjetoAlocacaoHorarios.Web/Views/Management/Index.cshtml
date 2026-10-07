@@ -1,0 +1,12 @@
+@model ProjetoAlocacaoHorarios.Web.Models.ManagementViewModel
+@{ ViewData["Title"] = "Central de cadastros"; }
+<section class="management-hero"><p class="eyebrow">CONFIGURAÇÃO DO SEMESTRE</p><h1>Vamos montar a sua grade.</h1><p>Cadastre cada informação no seu próprio espaço. Depois, conecte tudo nas alocações e gere os horários.</p></section>
+<section class="module-grid">
+    <a class="module-card blue" asp-action="Teachers"><span class="module-number">01</span><span class="module-icon">♙</span><h2>Professores</h2><p>Cadastre docentes e crie seus acessos.</p><strong>@Model.Teachers.Count cadastrados <b>→</b></strong></a>
+    <a class="module-card purple" asp-action="Courses"><span class="module-number">02</span><span class="module-icon">▣</span><h2>Cursos</h2><p>Organize cursos e níveis de ensino.</p><strong>@Model.Courses.Count cadastrados <b>→</b></strong></a>
+    <a class="module-card orange" asp-action="Classes"><span class="module-number">03</span><span class="module-icon">◫</span><h2>Turmas</h2><p>Defina semestre, turno e quantidade de alunos.</p><strong>@Model.Classes.Count cadastradas <b>→</b></strong></a>
+    <a class="module-card pink" asp-action="Subjects"><span class="module-number">04</span><span class="module-icon">◇</span><h2>Disciplinas</h2><p>Crie os componentes curriculares.</p><strong>@Model.Subjects.Count cadastradas <b>→</b></strong></a>
+    <a class="module-card green" asp-action="Slots"><span class="module-number">05</span><span class="module-icon">◷</span><h2>Horários</h2><p>Crie os slots que podem receber aulas.</p><strong>@Model.Slots.Count slots <b>→</b></strong></a>
+    <a class="module-card teal" asp-action="Availability"><span class="module-number">06</span><span class="module-icon">✓</span><h2>Disponibilidade</h2><p>Informe quando cada professor pode dar aula.</p><strong>@Model.Availabilities.Count registros <b>→</b></strong></a>
+</section>
+<section class="final-step"><div><p class="eyebrow">ETAPA FINAL</p><h2>Conecte as informações.</h2><p>Faça as alocações de professor, disciplina e turma antes de gerar a grade.</p></div><a class="btn btn-primary" asp-action="Assignments">Abrir alocações →</a></section>

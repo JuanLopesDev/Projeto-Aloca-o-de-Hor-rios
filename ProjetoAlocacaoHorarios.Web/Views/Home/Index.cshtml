@@ -1,0 +1,22 @@
+@model DashboardViewModel
+@{ ViewData["Title"] = "Painel"; }
+
+<section class="hero-card">
+    <div><p class="eyebrow">PLANEJAMENTO ACADÊMICO</p><h1>Horários que fazem sentido.</h1><p class="hero-copy">Organize aulas, respeite disponibilidades e gere uma grade clara para toda a instituição.</p>
+        @if (User.Identity?.IsAuthenticated == true) { <a class="btn btn-light btn-lg" asp-controller="Schedule" asp-action="Index">Abrir grade <span>→</span></a> }
+        else { <a class="btn btn-light btn-lg" asp-area="Identity" asp-page="/Account/Login">Entrar no sistema <span>→</span></a> }
+    </div><div class="hero-orb"><span>2026.2</span><small>em organização</small></div>
+</section>
+<section class="metrics-grid">
+    <article><span class="metric-icon">◉</span><div><small>Professores</small><strong>@Model.Teachers</strong></div></article>
+    <article><span class="metric-icon violet">▦</span><div><small>Turmas</small><strong>@Model.Classes</strong></div></article>
+    <article><span class="metric-icon orange">↗</span><div><small>Alocações</small><strong>@Model.Assignments</strong></div></article>
+    <article><span class="metric-icon green">✓</span><div><small>Aulas programadas</small><strong>@Model.ScheduledLessons <em>/ @Model.TotalLessons</em></strong></div></article>
+</section>
+<section class="panel schedule-preview">
+    <div class="panel-heading"><div><p class="eyebrow">VISÃO GERAL</p><h2>Próximas aulas da grade</h2></div><a asp-controller="Schedule" asp-action="Index">Ver grade completa →</a></div>
+    @if (Model.UpcomingEntries.Count == 0) { <div class="empty-state">A grade ainda não foi gerada. Entre como coordenador e inicie a geração.</div> }
+    else { <div class="table-responsive"><table class="table modern-table"><thead><tr><th>Dia</th><th>Horário</th><th>Disciplina</th><th>Turma</th><th>Professor</th></tr></thead><tbody>
+    @foreach (var entry in Model.UpcomingEntries) { <tr><td>@entry.TimeSlot!.DayOfWeek</td><td><span class="time-pill">@entry.TimeSlot.StartTime.ToString("HH:mm")</span></td><td><strong>@entry.Subject!.Name</strong></td><td>@entry.ClassGroup!.Name</td><td>@entry.Teacher!.Name</td></tr> }
+    </tbody></table></div> }
+</section>
